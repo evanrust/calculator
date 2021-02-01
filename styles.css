@@ -1,0 +1,89 @@
+body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Assistant', sans-serif;
+}
+
+.container{
+    margin-top: 10vh;
+    height: 75vh;
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    padding: 25px;
+    background-color: rgb(255, 232, 205) ;  
+    border-radius: 5%;
+}
+
+.numpad{
+    flex-grow: 5;
+    justify-content: end;
+}
+
+.numpad-row{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: space-evenly;
+}
+
+.numpad-row div{
+    font-size: 20px;
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    margin: 5px;
+    line-height: 75px;
+    
+}
+
+.display{
+    flex-grow: 1;
+    border: 2px solid black;
+    padding: 25px;
+    background-color: white;
+    text-align: right;
+    font-size: 24px;
+}
+
+.top-row{
+    flex-grow: 1;
+    border: 2px solid black;
+    padding: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    background-color: rgb(236, 236, 236);
+    font-size: 18px;
+}
+
+.top-row:hover{
+    background-color: rgb(236, 236, 236, 0.3);
+}
+
+.num{
+    background-color: rgba(211, 211, 211);
+}
+
+.num:hover{
+    background-color: rgba(211, 211, 211, 0.3);
+}
+
+.op{
+    background-color: orange;
+}
+
+.op:hover{
+    background-color: rgba(255,165,0,0.3);
+}
+
+.equal{
+    background-color: rgba(77, 241, 241);
+}
+
+.equal:hover{
+    background-color: rgba(77, 241, 241, 0.3); ;
+}

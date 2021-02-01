@@ -1,0 +1,1 @@
+This project utilizes JavaScript, HTML, and CSS to build an on-screen calculator
