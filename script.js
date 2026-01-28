@@ -33,5 +33,3 @@ function operate(first, operator, second) {
 let calcNumOne;
 let calcOperator;
 let calcNumTwo;
-
-console.log(operate(2,"+",4))
