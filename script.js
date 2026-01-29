@@ -1,6 +1,3 @@
-//
-const darkerColor = "darkblue"
-
 //functions
 //add
 const addTwo = (a, b) => a + b
@@ -14,7 +11,7 @@ const multiplyTwo = (a, b) => a * b
 //divide---hmm
 const divideTwo = (a, b) => a / b
 
-//operatore
+//operate
 function operate(first, operator, second) {
     switch (operator) {
         case "+":
@@ -31,9 +28,12 @@ function operate(first, operator, second) {
     }
 }
 
-//add hover to all buttons for shading darker...tint lighter and darker
+//selectors
 const allButtons = document.querySelectorAll(".btn")
+const numButtons = document.querySelectorAll(".btn-num")
+const screenDisplay = document.querySelector("#display")
 
+//add and remove tint
 allButtons.forEach(button => {
     button.addEventListener('mouseenter',(e) => {
         button.style.filter = 'brightness(0.7)'
@@ -46,16 +46,25 @@ allButtons.forEach(button => {
     })
 })
 
-//number buttons
-let numButtons = document.querySelectorAll(".btn-num")
 
-//num listeners for clicking to add to display/num
+//show clicked stuff on display
 numButtons.forEach(button => {
-    button.addEventListener("click",(e) => console.log(e))
+    button.addEventListener("click",(e) => {
+        //display it on the screen (just current number for now)
+        screenDisplay.textContent = button.textContent
+
+        //put it in the corret number variable -- first one if blank, else 2nd
+        if(!calcNumOne){
+            calcNumOne = button.textContent
+        }
+        else {
+            calcNumTwo = button.textContent
+        }
+    })
 })
 
 
 //main
-let calcNumOne = 0;
+let calcNumOne;
 let calcOperator;
 let calcNumTwo;
