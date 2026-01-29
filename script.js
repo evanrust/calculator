@@ -11,68 +11,95 @@ const multiplyTwo = (a, b) => a * b
 //divide---hmm
 const divideTwo = (a, b) => a / b
 
-//operate
-function operate(first, operator, second) {
-    switch (operator) {
-        case "+":
-            return addTwo(first, second);
-            break;
-        case "-":
-            return subtractTwo(first,second);
-            break;
-        case "*":
-            return multiplyTwo(first,second);
-            break;
-        case "/":
-            return divideTwo(first,second)
-    }
-}
-
 //selectors
 const allButtons = document.querySelectorAll(".btn")
 const numButtons = document.querySelectorAll(".btn-num")
 const screenDisplay = document.querySelector("#display")
 const equalsButton = document.querySelector("#equals")
 const clearButton = document.querySelector("#clear")
+const operateButtons = document.querySelectorAll(".button-dark")
 
-//add and remove tint
+//shading
 allButtons.forEach(button => {
-    button.addEventListener('mouseenter',(e) => {
+    //add tint on mouseover
+    button.addEventListener('mouseenter', (e) => {
         button.style.filter = 'brightness(0.7)'
     })
-})
-
-allButtons.forEach(button => {
-    button.addEventListener('mouseleave',(e) => {
+    //revert tint on exit
+    button.addEventListener('mouseleave', (e) => {
         button.style.filter = 'brightness(1)'
     })
 })
 
-
-//show clicked stuff on display
-numButtons.forEach(button => {
-    button.addEventListener("click",(e) => {
-        //display it on the screen (just current number for now)
-        screenDisplay.textContent = button.textContent
-
-        //put it in the correct number variable -- first one if blank, else 2nd
-        if(!calcNumOne){
-            calcNumOne = button.textContent
-        }
-        else {
-            calcNumTwo = button.textContent
+//when clicking operate buttons, save into operate variable
+//only save if its null already
+operateButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        if(!calcOperator){
+            calcOperator = button.textContent
         }
     })
 })
 
+//show clicked stuff on display
+numButtons.forEach(button => {
+    button.addEventListener("click", (e) => {
+        //display it on the screen (just current number for now)
+        screenDisplay.textContent = button.textContent
+
+        //put it in the correct number variable -- first one if blank, else 2nd
+        if (!calcNumOne) {
+            calcNumOne = parseInt(button.textContent)
+        }
+        else {
+            calcNumTwo = parseInt(button.textContent)
+        }
+
+        //uncover equals sign if nums/operator are selected
+        if (calcNumOne && calcNumTwo && calcOperator) {
+            equalsButton.style.backgroundColor = '#FFFFFF'
+        }
+
+    })
+})
+
 //clear button wipes display and all vars
-clearButton.addEventListener("click",() => {
+clearButton.addEventListener("click", () => {
     screenDisplay.textContent = ""
     calcNumOne = null
     calcNumTwo = null
     calcOperator = null
 })
 
+//operate -- call on equals
+function operate(first, operator, second) {
+    switch (operator) {
+        case "+":
+            return addTwo(first, second);
+            break;
+        case "-":
+            return subtractTwo(first, second);
+            break;
+        case "*":
+            return multiplyTwo(first, second);
+            break;
+        case "/":
+            return divideTwo(first, second)
+    }
+}
+//listen for equals and execute operate
+equalsButton.addEventListener("click", () => {
+
+    //only execute if both #s and the operator are in
+    if (calcNumOne && calcNumTwo && calcOperator) {
+
+        let thisResult = operate(calcNumOne, calcOperator, calcNumTwo)
+
+        //display result on screen
+        screenDisplay.textContent = thisResult
+    }
+
+})
 
 //main
 let calcNumOne;

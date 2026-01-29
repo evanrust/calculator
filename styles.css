@@ -54,3 +54,7 @@ body{
 .button-dark{
     background-color: rgb(171, 171, 171);
 }
+
+#equals{
+    background-color: black;
+}
