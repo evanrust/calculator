@@ -32,6 +32,8 @@ function operate(first, operator, second) {
 const allButtons = document.querySelectorAll(".btn")
 const numButtons = document.querySelectorAll(".btn-num")
 const screenDisplay = document.querySelector("#display")
+const equalsButton = document.querySelector("#equals")
+const clearButton = document.querySelector("#clear")
 
 //add and remove tint
 allButtons.forEach(button => {
@@ -53,7 +55,7 @@ numButtons.forEach(button => {
         //display it on the screen (just current number for now)
         screenDisplay.textContent = button.textContent
 
-        //put it in the corret number variable -- first one if blank, else 2nd
+        //put it in the correct number variable -- first one if blank, else 2nd
         if(!calcNumOne){
             calcNumOne = button.textContent
         }
@@ -61,6 +63,14 @@ numButtons.forEach(button => {
             calcNumTwo = button.textContent
         }
     })
+})
+
+//clear button wipes display and all vars
+clearButton.addEventListener("click",() => {
+    screenDisplay.textContent = ""
+    calcNumOne = null
+    calcNumTwo = null
+    calcOperator = null
 })
 
 
