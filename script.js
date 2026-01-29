@@ -1,3 +1,6 @@
+//
+const darkerColor = "darkblue"
+
 //functions
 //add
 const addTwo = (a, b) => a + b
@@ -28,8 +31,31 @@ function operate(first, operator, second) {
     }
 }
 
+//add hover to all buttons for shading darker...tint lighter and darker
+const allButtons = document.querySelectorAll(".btn")
+
+allButtons.forEach(button => {
+    button.addEventListener('mouseenter',(e) => {
+        button.style.filter = 'brightness(0.7)'
+    })
+})
+
+allButtons.forEach(button => {
+    button.addEventListener('mouseleave',(e) => {
+        button.style.filter = 'brightness(1)'
+    })
+})
+
+//number buttons
+let numButtons = document.querySelectorAll(".btn-num")
+
+//num listeners for clicking to add to display/num
+numButtons.forEach(button => {
+    button.addEventListener("click",(e) => console.log(e))
+})
+
 
 //main
-let calcNumOne;
+let calcNumOne = 0;
 let calcOperator;
 let calcNumTwo;
