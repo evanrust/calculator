@@ -36,6 +36,10 @@ allButtons.forEach(button => {
 operateButtons.forEach(button => {
     button.addEventListener('click', () => {
         if(!calcOperator){
+            //null out screen
+            screenDisplay.textContent = null
+
+            //set operator
             calcOperator = button.textContent
         }
     })
@@ -44,15 +48,23 @@ operateButtons.forEach(button => {
 //show clicked stuff on display
 numButtons.forEach(button => {
     button.addEventListener("click", (e) => {
-        //display it on the screen (just current number for now)
-        screenDisplay.textContent = button.textContent
 
-        //put it in the correct number variable -- first one if blank, else 2nd
-        if (!calcNumOne) {
-            calcNumOne = parseInt(button.textContent)
+        //if the operator isn't set yet, build the 1st #
+        if(!calcOperator){
+
+            //append to screen
+            screenDisplay.textContent += button.textContent
+
+            //set operator
+            calcNumOne = parseInt(screenDisplay.textContent)
         }
-        else {
-            calcNumTwo = parseInt(button.textContent)
+
+        else{ //2nd button
+            //append to screen
+            screenDisplay.textContent += button.textContent
+
+            //set operator
+            calcNumTwo = parseInt(screenDisplay.textContent)
         }
 
         //uncover equals sign if nums/operator are selected
