@@ -51,12 +51,12 @@ operateButtons.forEach(button => {
             let thisResult = operate(calcNumOne, calcOperator, calcNumTwo)
 
             //set the result to first var and clear out opreator, 2nd num
-            calcNumOne = thisResult
+            calcNumOne = parseFloat(thisResult.toFixed(2))
             calcOperator = button.textContent
             calcNumTwo = null
 
             //display result on screen
-            screenDisplay.textContent = thisResult
+            screenDisplay.textContent = parseFloat(thisResult.toFixed(2))
         }
     })
 })
@@ -127,7 +127,7 @@ equalsButton.addEventListener("click", () => {
     //only execute if both #s and the operator are in
     if (calcNumOne && calcNumTwo && calcOperator) {
 
-        let thisResult = operate(calcNumOne, calcOperator, calcNumTwo)
+        let thisResult = operate(calcNumOne, calcOperator, calcNumTwo).toFixed(2)
 
         //display result on screen
         screenDisplay.textContent = thisResult
