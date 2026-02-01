@@ -35,22 +35,38 @@ allButtons.forEach(button => {
 //only save if its null already
 operateButtons.forEach(button => {
     button.addEventListener('click', () => {
-        if(!calcOperator){
+
+        //if this is the first operation
+        if (!calcOperator) {
             //null out screen
             screenDisplay.textContent = null
 
             //set operator
             calcOperator = button.textContent
         }
+
+        //if this is an operation in a chain
+        else {
+            //calculate the result + display it
+            let thisResult = operate(calcNumOne, calcOperator, calcNumTwo)
+
+            //set the result to first var and clear out opreator, 2nd num
+            calcNumOne = thisResult
+            calcOperator = button.textContent
+            calcNumTwo = null
+
+            //display result on screen
+            screenDisplay.textContent = thisResult
+        }
     })
 })
 
-//show clicked stuff on display
+//number buttons
 numButtons.forEach(button => {
     button.addEventListener("click", (e) => {
 
         //if the operator isn't set yet, build the 1st #
-        if(!calcOperator){
+        if (!calcOperator) {
 
             //append to screen
             screenDisplay.textContent += button.textContent
@@ -59,7 +75,13 @@ numButtons.forEach(button => {
             calcNumOne = parseInt(screenDisplay.textContent)
         }
 
-        else{ //2nd button
+        else { //2nd button
+
+            //if we start the 2nd number, clear the display first
+            if(!calcNumTwo){
+                screenDisplay.textContent = null
+            }
+
             //append to screen
             screenDisplay.textContent += button.textContent
 
@@ -75,7 +97,7 @@ numButtons.forEach(button => {
     })
 })
 
-//clear button wipes display and all vars
+//clear button
 clearButton.addEventListener("click", () => {
     screenDisplay.textContent = ""
     calcNumOne = null
@@ -83,7 +105,7 @@ clearButton.addEventListener("click", () => {
     calcOperator = null
 })
 
-//operate -- call on equals
+//operate function
 function operate(first, operator, second) {
     switch (operator) {
         case "+":
@@ -99,7 +121,7 @@ function operate(first, operator, second) {
             return divideTwo(first, second)
     }
 }
-//listen for equals and execute operate
+//equals button
 equalsButton.addEventListener("click", () => {
 
     //only execute if both #s and the operator are in
