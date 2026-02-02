@@ -9,7 +9,12 @@ const subtractTwo = (a, b) => a - b
 const multiplyTwo = (a, b) => a * b
 
 //divide---hmm
-const divideTwo = (a, b) => a / b
+const divideTwo = (a, b) => {
+    if (b === 0) {
+        return 'Div by 0!'
+    }
+    else return a / b
+}
 
 //selectors
 const allButtons = document.querySelectorAll(".btn")
@@ -69,7 +74,13 @@ numButtons.forEach(button => {
         if (!calcOperator) {
 
             //append to screen
-            screenDisplay.textContent += button.textContent
+            //if no number already, create it, else add
+            if(!calcNumOne && calcNumOne!==0){
+                clearAll()
+                screenDisplay.textContent = button.textContent
+            }
+
+            else screenDisplay.textContent += button.textContent
 
             //set operator
             calcNumOne = parseInt(screenDisplay.textContent)
@@ -78,7 +89,7 @@ numButtons.forEach(button => {
         else { //2nd button
 
             //if we start the 2nd number, clear the display first
-            if(!calcNumTwo){
+            if (!calcNumTwo) {
                 screenDisplay.textContent = null
             }
 
@@ -97,13 +108,15 @@ numButtons.forEach(button => {
     })
 })
 
-//clear button
-clearButton.addEventListener("click", () => {
+function clearAll(){
     screenDisplay.textContent = ""
     calcNumOne = null
     calcNumTwo = null
     calcOperator = null
-})
+}
+
+//clear button
+clearButton.addEventListener("click", clearAll)
 
 //operate function
 function operate(first, operator, second) {
@@ -124,10 +137,26 @@ function operate(first, operator, second) {
 //equals button
 equalsButton.addEventListener("click", () => {
 
+    //catch divide by 0
+    if (calcNumTwo == 0 && calcOperator == '/') {
+        
+        //clear everything
+        clearAll()
+
+        //show error
+        let thisResult = 'Div / 0'
+        screenDisplay.textContent = thisResult
+    }
+
     //only execute if both #s and the operator are in
     if (calcNumOne && calcNumTwo && calcOperator) {
 
-        let thisResult = operate(calcNumOne, calcOperator, calcNumTwo).toFixed(2)
+        let thisResult = operate(calcNumOne, calcOperator, calcNumTwo)
+
+        //round off if float
+        if(thisResult % 1 !== 0){
+            thisResult = thisResult.toFixed(2)
+        }
 
         //display result on screen
         screenDisplay.textContent = thisResult
